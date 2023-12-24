@@ -169,4 +169,4 @@ This line defines a named volume called `mojo`.
 
 ## Result
 
-[Mojo Installed](https://github.com/hajsf/mojo-docker/blob/main/result.png?raw=true)
+![Mojo Installed](https://github.com/hajsf/mojo-docker/blob/main/result.png?raw=true)
