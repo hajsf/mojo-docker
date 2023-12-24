@@ -1,5 +1,6 @@
-The Docker file:
-Sure, here's a line-by-line explanation of your Dockerfile:
+## The Docker file:
+
+Here's a line-by-line explanation of your Dockerfile:
 
 ```Dockerfile
 # Use Ubuntu 24.04 as the base image
@@ -82,9 +83,9 @@ CMD ["-f", "/dev/null"]
 ```
 These lines are setting the default command that will be executed when the Docker container is run. In this case, the `tail -f /dev/null` command will be run, which does nothing and never exits. This is often used in Dockerfiles to keep the Docker container running indefinitely.
 
-The Docker compose file:
+## The Docker compose file:
 
-Sure, here's a line-by-line explanation of your Docker Compose file:
+Here's a line-by-line explanation of your Docker Compose file:
 
 ```yaml
 version: '3.8'
@@ -165,3 +166,7 @@ This line begins a section where you can define named volumes. Named volumes can
   mojo:
 ```
 This line defines a named volume called `mojo`.
+
+## Result
+
+[Mojo Installed](https://github.com/hajsf/mojo-docker/blob/main/result.png?raw=true)
