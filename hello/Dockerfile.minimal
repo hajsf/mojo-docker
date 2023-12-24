@@ -1,0 +1,31 @@
+# Use the mojo-sdk Docker image with the tag r0.6 as the base image for the builder stage
+FROM mojo-sdk:r0.6 as builder
+
+# Set the working directory inside the Docker container to /app
+WORKDIR /app
+
+# Copy the main.mojo file from the Docker build context to the /app/main.mojo path inside the Docker container
+COPY main.mojo /app/main.mojo
+
+# Build the main.mojo file using the mojo command
+RUN /root/.modular/pkg/packages.modular.com_mojo/bin/mojo build /app/main.mojo
+
+# Start a new build stage and use the ubuntu Docker image with the tag 24.04 as the base image
+FROM ubuntu:24.04
+
+# Set the working directory inside the Docker container to /app
+WORKDIR /app
+
+# Copy the /app/main file from the builder stage to the /app/main path in the current stage
+COPY --from=builder /app/main /app/main
+
+# Make the /app/main file executable
+RUN chmod +x /app/main
+
+# Set the default command that will be executed when the Docker container is run to /app/main
+CMD ["/app/main"]
+
+
+
+# docker build -t my-app-minimal -f Dockerfile.minimal --no-cache .
+# docker run --rm my-app-minimal

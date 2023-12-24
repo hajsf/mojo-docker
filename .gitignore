@@ -1,0 +1,8 @@
+# ignore all . files and . folders
+.*
+!.env
+!.gitignore
+
+# Ignore some folders and all the files inside them
+/tries
+/Projects

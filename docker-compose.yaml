@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mojo-sdk:
+    container_name: mojo-sdk
+    image: mojo-sdk:r0.6
+    build:
+      context: .
+      dockerfile: Dockerfile.mojosdk
+      no_cache : true
+    volumes:
+      - /home/hajsf/Development/mojo:/root
+      - mojo:/root
+    ports:
+      - 3000:80
+volumes:
+  mojo:
+#    external: true # If the mojoProjects volume already exists
+#    command: tail -f /dev/null
+
