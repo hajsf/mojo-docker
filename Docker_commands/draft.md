@@ -236,3 +236,26 @@ Remember to replace `myapp`, `yourusername`, and `myrepository` with your actual
 
 After pushing the image, it will be available on Docker Hub under your repository for others to access and use.
 
+## Cleaning Docker data
+
+The `docker system prune -a` command is indeed a convenient way to clean multiple elements in Docker. However, if you want to clean specific elements individually, Docker provides separate commands for each:
+
+1. **Stopped Containers:**
+   ```bash
+   docker container prune
+   ```
+
+2. **Unused Networks:**
+   ```bash
+   docker network prune
+   ```
+
+3. **Images without Containers:**
+   ```bash
+   docker image prune
+   ```
+
+4. **Build Cache:**
+   Docker doesn't have a direct command solely for clearing build cache. The build cache is usually cleared by either rebuilding images with the `--no-cache` option or, in more complex scenarios, manually removing specific directories as previously described (`/var/lib/docker/buildkit/buildx` or similar).
+
+Each of these commands will prompt for confirmation before deleting the respective elements. You can use these individual commands to target specific resources for cleanup without affecting others.
