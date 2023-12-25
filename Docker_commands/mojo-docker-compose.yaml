@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mojo-sdk:
     container_name: mojo
-    image: mojo-sdk:1.21.5
+    image: mojo-sdk:r0.6
     volumes:
 #      - /home/hajsf/Development/mojo:/root
       - mojo:/root
