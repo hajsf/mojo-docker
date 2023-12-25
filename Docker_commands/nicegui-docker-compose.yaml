@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  nicegui-sdk:
+    container_name: nicegui
+    image: nicegui:v1.4.6
+    volumes:
+#      - /home/hajsf/Development/nicegui:/root
+      - nicegui:/root
+    ports:
+      - 3000:80
+volumes:
+  nicegui:
+#    external: true # If the nicegui volume already exists
+#    command: tail -f /dev/null

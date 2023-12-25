@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  go-sdk:
+    container_name: go
+    image: go-sdk:1.21.5
+    volumes:
+#      - /home/hajsf/Development/go:/root
+      - go:/root
+    ports:
+      - 3000:80
+volumes:
+  go:
+#    external: true # If the go volume already exists
+#    command: tail -f /dev/null

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mojo-sdk:
+    container_name: mojo
+    image: mojo-sdk:1.21.5
+    volumes:
+#      - /home/hajsf/Development/mojo:/root
+      - mojo:/root
+    ports:
+      - 3000:80
+volumes:
+  mojo:
+#    external: true # If the mojo volume already exists
+#    command: tail -f /dev/null

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  zig-sdk:
+    container_name: zig
+    image: zig-sdk:0.12.0-dev
+    volumes:
+#      - /home/hajsf/Development/zig:/root
+      - zig:/root
+    ports:
+      - 3000:80
+volumes:
+  zig:
+#    external: true # If the zig volume already exists
+#    command: tail -f /dev/null
+
