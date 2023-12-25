@@ -1,0 +1,84 @@
+# Use Ubuntu 24.04 as the base image
+FROM ubuntu:24.04
+
+# Set the environment variable to noninteractive mode
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Set /app as the working directory
+WORKDIR /app
+
+# Copy the shell script and the .env file into the Docker image
+COPY auth_script.sh .
+COPY .env .
+
+RUN apt-get update &&  \
+    # Install required dependencies
+    apt-get install -y \
+    python3 \
+    python3-venv \
+    gnupg \
+    git \
+    curl \
+    wget \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    # Download Modular setup requirements
+    && set -eux; \
+    keyring_location=/usr/share/keyrings/modular-installer-archive-keyring.gpg \
+    && curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/gpg.0E4925737A3895AD.key' | gpg --dearmor >> ${keyring_location} \
+    && curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/config.deb.txt?distro=debian&codename=wheezy' > /etc/apt/sources.list.d/modular-installer.list \
+    && apt-get update \
+    # Install Modular
+    && apt-get install -y modular \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && echo 'export MODULAR_HOME="/root/.modular"' >> ~/.bashrc \
+    && echo 'export PATH="/root/.modular/pkg/packages.modular.com_mojo/bin:$PATH"' >> ~/.bashrc \
+    && /bin/bash -c "source ~/.bashrc" \
+    # Install Mojo Lang
+    && modular clean \
+    && chmod +x auth_script.sh \
+    && ./auth_script.sh \
+    && modular install mojo \
+    # Create a symbolic link that points from /usr/bin/python to /usr/bin/python3
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    # Clean ubrequired dependencies
+    && apt-get remove -y \
+    gnupg \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && apt-get purge -y --auto-remove \
+    # Delete the files after you're done with them
+    && rm auth_script.sh .env
+
+# Expose port 80
+EXPOSE 80
+
+# Set the entrypoint and command to keep the container running
+ENTRYPOINT ["tail"]
+CMD ["-f", "/dev/null"]
+
+# docker build -t mojo-sdk -f Dockerfile.mojosdk --no-cache .
+# docker run -d --publish 3000:80 --volume ./Projects:/root --name mojo-sdk mojo-sdk
+
+# docker volume create mojoProjects
+# docker run -d -v mojoProjects:/root mojo-sdk
+
+# [hajsf@archlinux mojoDocker]$ sudo -i
+# [root@archlinux ~]# cd /var/lib/docker/volumes/
+# [root@archlinux volumes]# ls
+# backingFsBlockDev  metadata.db  mojoProjects
+
+# docker run -d --publish 3000:80 --name mojo-sdk mojo-sdk
+
+# docker container stop mojo-sdk
+
+# Remove the container without removing its data
+# docker container rm -v mojo-sdk
+
+## Map Volume
+# docker volume create mojoProjects
+
+# docker build -t mojo-sdk:r0.6 -f Dockerfile.mojosdk --no-cache .
+# docker volume create --opt type=none --opt device=/home/hajsf/Dockers/mojoDocker/Projects --opt o=bind mojoProjects
+
+# docker run -d --publish 3000:80 --name mojo-sdk --mount source=mojoProjects,target=/app mojo-sdk:r0.6

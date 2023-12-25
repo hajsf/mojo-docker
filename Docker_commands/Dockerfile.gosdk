@@ -1,0 +1,38 @@
+# Use an existing docker image as a base
+FROM ubuntu:24.04
+
+# Define a variable for the GO version
+ARG GO_VERSION=go1.21.5
+
+# Install necessary tools for Ubuntu
+RUN apt-get update && \
+    apt-get install -y curl tar xz-utils && \
+    rm -rf /var/lib/apt/lists/* \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && apt-get purge -y --auto-remove
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Download the pre-built binary using the variable
+RUN curl -O https://dl.google.com/go/${GO_VERSION}.linux-amd64.tar.gz
+
+# Extract the tarball directly to /usr/local
+RUN tar -C /usr/local -xzf ${GO_VERSION}.linux-amd64.tar.gz
+
+# Clean up the working directory
+RUN rm -rf ${GO_VERSION}.linux-amd64.tar.gz
+
+# Add GO to PATH
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+EXPOSE 3000
+
+CMD ["tail", "-f", "/dev/null"]
+
+
+# docker build -t go-sdk:1.21.5 -f Dockerfile.gosdk --no-cache .
+# docker tag go-sdk:1.21.5 hajsf/go-sdk:1.21.5
+# docker push hajsf/go-sdk:1.21.5

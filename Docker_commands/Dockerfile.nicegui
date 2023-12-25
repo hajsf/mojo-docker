@@ -1,0 +1,23 @@
+# Use Python 3.11.7 as the base image
+FROM python-sdk:v3.11.7
+
+# Create and set the working directory
+WORKDIR /app
+
+# Create a virtual environment
+RUN python -m venv /venv
+
+# Activate the virtual environment and set environment variables
+ENV VIRTUAL_ENV=/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install nicegui within the virtual environment
+RUN pip install nicegui
+
+# Set the entrypoint and command to keep the container running
+ENTRYPOINT ["tail"]
+CMD ["-f", "/dev/null"]
+
+# docker build -t nicegui:v1.4.6 -f Dockerfile.nicegui --no-cache .
+# docker tag nicegui:v1.4.6 hajsf/nicegui:v1.4.6
+# docker push hajsf/nicegui:v1.4.6
