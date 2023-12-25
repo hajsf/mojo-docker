@@ -8,7 +8,7 @@ services:
 #      - /home/hajsf/Development/mojo:/root
       - mojo:/root
     ports:
-      - 3000:80
+      - 4040:80
 volumes:
   mojo:
 #    external: true # If the mojo volume already exists

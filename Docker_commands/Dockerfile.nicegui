@@ -14,6 +14,9 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Install nicegui within the virtual environment
 RUN pip install nicegui
 
+# Expose port 80
+EXPOSE 80
+
 # Set the entrypoint and command to keep the container running
 ENTRYPOINT ["tail"]
 CMD ["-f", "/dev/null"]

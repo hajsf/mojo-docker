@@ -28,7 +28,8 @@ RUN rm -rf ${GO_VERSION}.linux-amd64.tar.gz
 # Add GO to PATH
 ENV PATH="/usr/local/go/bin:${PATH}"
 
-EXPOSE 3000
+# Expose port 80
+EXPOSE 80
 
 CMD ["tail", "-f", "/dev/null"]
 

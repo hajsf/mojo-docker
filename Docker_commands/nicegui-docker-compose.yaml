@@ -8,7 +8,7 @@ services:
 #      - /home/hajsf/Development/nicegui:/root
       - nicegui:/root
     ports:
-      - 3000:80
+      - 4042:80
 volumes:
   nicegui:
 #    external: true # If the nicegui volume already exists

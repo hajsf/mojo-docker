@@ -22,6 +22,9 @@ RUN apt-get update &&  \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && apt-get purge -y --auto-remove
 
+# Expose port 80
+EXPOSE 80
+
 # Set the entrypoint and command to keep the container running
 ENTRYPOINT ["tail"]
 CMD ["-f", "/dev/null"]

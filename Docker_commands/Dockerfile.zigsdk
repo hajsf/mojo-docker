@@ -33,7 +33,8 @@ RUN rm -rf ${ZIG_VERSION}*
 # Add Zig to PATH
 ENV PATH="/usr/local/bin:${PATH}"
 
-EXPOSE 3000
+# Expose port 80
+EXPOSE 80
 
 CMD ["tail", "-f", "/dev/null"]
 
