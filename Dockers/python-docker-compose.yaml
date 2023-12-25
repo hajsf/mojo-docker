@@ -16,4 +16,4 @@ services:
     command: tail -f /dev/null
 volumes:
   python:
-#    external: true # If the mojo volume already exists
+#    external: true # If the python volume already exists

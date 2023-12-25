@@ -259,3 +259,19 @@ The `docker system prune -a` command is indeed a convenient way to clean multipl
    Docker doesn't have a direct command solely for clearing build cache. The build cache is usually cleared by either rebuilding images with the `--no-cache` option or, in more complex scenarios, manually removing specific directories as previously described (`/var/lib/docker/buildkit/buildx` or similar).
 
 Each of these commands will prompt for confirmation before deleting the respective elements. You can use these individual commands to target specific resources for cleanup without affecting others.
+
+  ## volume binding:
+
+      volumes:
+      - type: volume
+        source: <docker_volume>
+        target: /app
+      - type: bind
+        source: /path/at/host/machine
+        target: /app
+    ports:
+      - 4040:80
+    command: tail -f /dev/null
+volumes:
+  <docker_volume>:
+#    external: true # If the <docker_volume> volume already exists

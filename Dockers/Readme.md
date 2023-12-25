@@ -120,3 +120,19 @@ Absolutely, I've reformatted the content into a more structured and concise refe
 
 - **Network Cleanup:**
   - Remove all networks: `docker network prune`
+
+  ## volume binding:
+
+      volumes:
+      - type: volume
+        source: <docker_volume>
+        target: /app
+      - type: bind
+        source: /path/at/host/machine
+        target: /app
+    ports:
+      - 4040:80
+    command: tail -f /dev/null
+volumes:
+  <docker_volume>:
+#    external: true # If the <docker_volume> volume already exists
