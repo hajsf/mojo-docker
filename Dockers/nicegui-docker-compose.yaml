@@ -5,11 +5,15 @@ services:
     container_name: nicegui
     image: nicegui:v1.4.6
     volumes:
-#      - /home/hajsf/Development/nicegui:/root
-      - nicegui:/root
+      - type: volume
+        source: nicegui
+        target: /app
+      - type: bind
+        source: /home/hajsf/Development/nicegui
+        target: /app
     ports:
-      - 4042:80
+      - 4040:80
+    command: tail -f /dev/null
 volumes:
   nicegui:
-#    external: true # If the nicegui volume already exists
-#    command: tail -f /dev/null
+#    external: true # If the mojo volume already exists

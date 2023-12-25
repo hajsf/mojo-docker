@@ -5,11 +5,15 @@ services:
     container_name: python
     image: python-sdk:v3.11.7
     volumes:
-#      - /home/hajsf/Development/python:/root
-      - python:/root
+      - type: volume
+        source: python
+        target: /app
+      - type: bind
+        source: /home/hajsf/Development/python
+        target: /app
     ports:
-      - 4043:80
+      - 4040:80
+    command: tail -f /dev/null
 volumes:
   python:
-#    external: true # If the python volume already exists
-#    command: tail -f /dev/null
+#    external: true # If the mojo volume already exists

@@ -5,11 +5,15 @@ services:
     container_name: mojo
     image: mojo-sdk:r0.6
     volumes:
-#      - /home/hajsf/Development/mojo:/root
-      - mojo:/root
+      - type: volume
+        source: mojo
+        target: /app
+      - type: bind
+        source: /home/hajsf/Development/mojo
+        target: /app
     ports:
       - 4040:80
+    command: tail -f /dev/null
 volumes:
   mojo:
 #    external: true # If the mojo volume already exists
-#    command: tail -f /dev/null

@@ -1,20 +1,18 @@
 version: '3.8'
-
 services:
-  zig-sdk:
-    container_name: zig
-    image: zig-sdk:0.12.0-dev
+  my-service:
+    container_name: mojo
+    image: docker.io/hajsf/mojo-sdk:r0.6
     volumes:
       - type: volume
-        source: zig
+        source: mojo
         target: /app
       - type: bind
-        source: /home/hajsf/Development/zig
+        source: /home/hajsf/Development/mojo
         target: /app
     ports:
       - 4040:80
     command: tail -f /dev/null
 volumes:
-  zig:
+  mojo:
 #    external: true # If the mojo volume already exists
-
