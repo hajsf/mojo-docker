@@ -119,4 +119,4 @@ Absolutely, I've reformatted the content into a more structured and concise refe
   - Volumes: `docker volume ls -q | xargs docker volume inspect --format '{{ .Name }}: {{ .Mountpoint }}'`
 
 - **Network Cleanup:**
-  - Remove all networks: `docker network prune -a`
+  - Remove all networks: `docker network prune`
