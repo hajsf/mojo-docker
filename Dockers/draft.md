@@ -275,3 +275,19 @@ Each of these commands will prompt for confirmation before deleting the respecti
 volumes:
   <docker_volume>:
 #    external: true # If the <docker_volume> volume already exists
+
+Yes, the command you provided can be used to export a Docker volume to a tar file, and it can also be used for volumes that are bind-mounted to the host machine. Here's how it works:
+
+```bash
+docker run --rm -v <volume_name>:/data -v /tmp:/backup alpine tar -czvf /backup/<volume_name>.tar.gz /data
+```
+
+- `docker run --rm`: This starts a new Docker container and automatically removes it when it exits.
+- `-v <volume_name>:/data`: This mounts the Docker volume (or a host directory if `<volume_name>` is a path on the host) to the `/data` directory inside the Docker container.
+- `-v /tmp:/backup`: This mounts the `/tmp` directory on the host to the `/backup` directory inside the Docker container.
+- `alpine`: This is the Docker image used to start the Docker container. Alpine Linux is a lightweight Linux distribution, so it's commonly used for tasks like this.
+- `tar -czvf /backup/<volume_name>.tar.gz /data`: This command is run inside the Docker container. It creates a tar file at `/backup/<volume_name>.tar.gz` (which corresponds to `/tmp/<volume_name>.tar.gz` on the host) that contains all the files from the `/data` directory (which contains the files from the Docker volume or host directory).
+
+So, in summary, this command starts a new Docker container, mounts the Docker volume (or host directory) and the `/tmp` directory from the host to paths inside the Docker container, and then creates a tar file on the host that contains all the files from the Docker volume (or host directory).
+
+Please note that this command should be run on the host machine where Docker is installed. If you're not on the host machine, you'll need to SSH into the host machine first. Also, ensure that Docker is installed and SSH is enabled on the host and in the container. If you face any issues, feel free to ask! 😊
