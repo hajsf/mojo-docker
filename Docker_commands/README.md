@@ -187,5 +187,52 @@ MNetworks Cleanup
 docker network prune -a
 ```
 
+## Push to Docker Hub 
 
+Pushing a Docker image to Docker Hub involves a few steps. Here's a general outline:
+
+### Steps:
+
+1. **Log in to Docker Hub:** Use the `docker login` command to log in to Docker Hub in your terminal or command prompt.
+   ```bash
+   docker login
+   ```
+   Enter your Docker Hub username and password when prompted.
+
+2. **Tag your Docker image:** Tag the Docker image with your Docker Hub username and the repository name using the `docker tag` command.
+   ```bash
+   docker tag <image_name>:<tag> <username>/<repository_name>:<tag>
+   ```
+   Replace `<image_name>` with the name of your local Docker image, `<tag>` with the version or tag you want to give the image, `<username>` with your Docker Hub username, and `<repository_name>` with the name of the repository on Docker Hub you want to push the image to.
+
+3. **Push the image to Docker Hub:** Use the `docker push` command to upload your tagged image to Docker Hub.
+   ```bash
+   docker push <username>/<repository_name>:<tag>
+   ```
+   Replace `<username>/<repository_name>:<tag>` with the same tag and repository name you used in the previous step.
+
+4. **Verify the upload:** Once the upload is complete, you can verify that your image is on Docker Hub by logging in to Docker Hub through a web browser or using the Docker Hub API.
+
+### Example:
+
+Let's say your Docker image is named `myapp` and you want to push it to a repository named `myrepository` under your Docker Hub account with the tag `v1.0`. Here's how you'd do it:
+
+1. Log in to Docker Hub:
+   ```bash
+   docker login
+   ```
+
+2. Tag your Docker image:
+   ```bash
+   docker tag myapp:v1.0 yourusername/myrepository:v1.0
+   ```
+
+3. Push the image to Docker Hub:
+   ```bash
+   docker push yourusername/myrepository:v1.0
+   ```
+
+Remember to replace `myapp`, `yourusername`, and `myrepository` with your actual image name, Docker Hub username, and repository name, respectively.
+
+After pushing the image, it will be available on Docker Hub under your repository for others to access and use.
 
