@@ -1,0 +1,11 @@
+version: '3'
+services:
+  osb:
+    image: osb_archlinux
+    build:
+      context: .
+      dockerfile: obs.dockerfile
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=$DISPLAY
