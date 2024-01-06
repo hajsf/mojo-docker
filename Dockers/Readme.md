@@ -17,7 +17,10 @@ Absolutely, I've reformatted the content into a more structured and concise refe
    ```bash
    sudo systemctl is-active docker || sudo systemctl start docker
    ```
-
+2. **Start Docker Daemon at boot:**
+  ```bash
+  sudo systemctl enable docker
+  ```
 ### **Images**
 
 1. **Build an Image:**
